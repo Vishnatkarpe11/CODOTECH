@@ -1,0 +1,47 @@
+import re
+
+# Define a function for the chatbot
+def chatbot_response(user_input):
+    # Define some simple responses based on keywords
+    responses = {
+        "hello": "Hi there! How can I assist you today?",
+        "how are you": "I'm just a bot, but I'm doing great!",
+        "what is your name": "I am a simple chatbot created using Python.",
+        "bye": "Goodbye! Have a great day!",
+        "your name": "My name is Chatbot!",
+        "what can you do": "I can chat with you, answer simple questions, and provide information!"
+    }
+
+    # Convert the user input to lowercase to make the matching case-insensitive
+    user_input = user_input.lower()
+
+    # Check for exact matches in the responses dictionary
+    for key, response in responses.items():
+        if re.search(r"\b" + re.escape(key) + r"\b", user_input):
+            return response
+    
+    # Default response if no match is found
+    return "I'm sorry, I didn't understand that. Could you rephrase?"
+
+# Main loop for the chatbot
+def chat():
+    print("Hello! I'm your friendly chatbot. Type 'quit' to exit.")
+    
+    # Start the chat loop
+    while True:
+        user_input = input("You: ")
+        
+        # Allow the user to exit the chat by typing 'quit'
+        if user_input.lower() == 'quit':
+            print("Goodbye!")
+            break
+        
+        # Get the response from the chatbot
+        response = chatbot_response(user_input)
+        
+        # Print the chatbot's response
+        print(f"Chatbot: {response}")
+
+# Start the chatbot
+if __name__ == "__main__":
+    chat()
