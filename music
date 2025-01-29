@@ -1,0 +1,64 @@
+import random
+
+# Mock function to simulate getting trending music tracks
+def get_trending_tracks():
+    # Mock list of trending tracks, simulating API data (e.g., Spotify, YouTube)
+    trending_tracks = [
+        {"id": 1, "name": "Blinding Lights", "artist": "The Weeknd"},
+        {"id": 2, "name": "Levitating", "artist": "Dua Lipa"},
+        {"id": 3, "name": "Save Your Tears", "artist": "The Weeknd"},
+        {"id": 4, "name": "Good 4 U", "artist": "Olivia Rodrigo"},
+        {"id": 5, "name": "Stay", "artist": "The Kid LAROI, Justin Bieber"},
+        {"id": 6, "name": "Kiss Me More", "artist": "Doja Cat, SZA"},
+        {"id": 7, "name": "Montero", "artist": "Lil Nas X"},
+        {"id": 8, "name": "Industry Baby", "artist": "Lil Nas X, Jack Harlow"},
+        {"id": 9, "name": "Deja Vu", "artist": "Olivia Rodrigo"},
+        {"id": 10, "name": "Butter", "artist": "BTS"}
+    ]
+    return trending_tracks
+
+# Mock function to simulate user's historical listening data
+def get_user_history():
+    # Simulating a user's previously listened tracks
+    user_history = [
+        {"id": 1, "name": "Blinding Lights", "artist": "The Weeknd"},
+        {"id": 4, "name": "Good 4 U", "artist": "Olivia Rodrigo"},
+        {"id": 2, "name": "Levitating", "artist": "Dua Lipa"}
+    ]
+    return user_history
+
+# A simple recommendation system (content-based filtering)
+def recommend_songs(user_history, trending_tracks):
+    # Get the names of songs the user has already listened to
+    user_history_names = [song['name'] for song in user_history]
+    
+    # Find trending tracks that the user hasn't already listened to
+    recommended_songs = []
+    for track in trending_tracks:
+        if track['name'] not in user_history_names:
+            recommended_songs.append(track)
+    
+    # Shuffle and return the top 5 recommended songs
+    random.shuffle(recommended_songs)
+    return recommended_songs[:5]
+
+def display_recommendations(recommended_songs):
+    print("\nBased on your listening history, we recommend the following tracks:")
+    for i, song in enumerate(recommended_songs, start=1):
+        print(f"{i}. {song['name']} by {song['artist']}")
+
+def main():
+    # Fetch the trending tracks (simulated here)
+    trending_tracks = get_trending_tracks()
+    
+    # Fetch the user's listening history (simulated here)
+    user_history = get_user_history()
+    
+    # Recommend songs based on user history
+    recommended_songs = recommend_songs(user_history, trending_tracks)
+    
+    # Display the recommendations
+    display_recommendations(recommended_songs)
+
+if __name__ == "__main__":
+    main()
